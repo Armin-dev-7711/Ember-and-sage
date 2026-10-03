@@ -54,6 +54,7 @@
   --font-serif: var(--font-serif);
   --font-sans:  var(--font-sans);
   --font-mono:  var(--font-geist-mono);
+  --font-signature: var(--font-signature);
 
   /* ── Brand colour aliases (usable as bg-ember, text-ember-hover, etc.) ── */
   --color-charcoal:     #0B0908;
@@ -180,6 +181,10 @@
 
   .font-sans {
     font-family: var(--font-sans), "system-ui", sans-serif;
+  }
+
+  .font-signature {
+    font-family: var(--font-signature), cursive;
   }
 
   /* Ember glow effect on text */

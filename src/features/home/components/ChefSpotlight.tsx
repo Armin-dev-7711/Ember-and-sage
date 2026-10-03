@@ -1,40 +1,53 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useStoryScrollAnimation } from "../hooks/useStoryScrollAnimation";
+import { chefSpotlightData } from "../mocks/chef.mock";
+import { useChefAnimation } from "../hooks/useChefAnimation";
 
 /**
- * StoryTeaser
+ * ChefSpotlight
  * ─────────────────────────────────────────────────────────────────────────
- * "Our Story" teaser section – second section on the home page.
+ * Section 5: "Chef Spotlight" – Executive Chef Adrian Cole.
  *
  * Layout:
- *  - Dark `#0B0908` background, flush with the hero above
- *  - Responsive 12-col grid: portrait image (left 5 cols) + content (right 7)
- *  - Portrait: atmospheric restaurant interior with olive velvet booths,
- *    copper pendants, candlelight, open-fire kitchen in background.
- *  - Content: eyebrow tag → serif headline (regular + italic) → body copy → CTA
+ *  - Fully stretched container matching StoryTeaser (px-6 md:px-12 lg:px-[4vw] xl:px-[5vw])
+ *  - Responsive 12-col grid: portrait image (left 6 cols) + content (right 6 cols)
+ *  - Cinematic portrait with smooth edge vignetting into #0B0908
+ *  - Content: eyebrow → serif headline with ember italic → philosophy body
+ *    → elegant handwritten signature block (Alex Brush) → interactive CTA
  *
  * GSAP:
- *  - Image: scrub-based scale-down parallax (1.08 → 1.0) via ScrollTrigger
- *  - Content children: staggered fade+lift on scroll entry (power3.out, 0.12s stagger)
+ *  - Smooth scrubbed vertical parallax + scale settle via useChefAnimation
+ *  - Staggered content entrance
  */
-export default function StoryTeaser() {
-  const containerRef = useStoryScrollAnimation();
+export function ChefSpotlight() {
+  const { containerRef, portraitWrapperRef, portraitImageRef, contentRef } =
+    useChefAnimation();
+  const {
+    eyebrow,
+    headlineLine1,
+    headlineLine2,
+    philosophy,
+    name,
+    credential,
+    linkText,
+    linkUrl,
+  } = chefSpotlightData;
 
   return (
     <section
       ref={containerRef as React.RefObject<HTMLElement>}
-      id="our-story-teaser"
-      aria-label="Our Story – EMBER & SAGE"
+      id="chef-spotlight"
+      aria-label="Chef Spotlight – Adrian Cole"
       className={cn(
         "relative w-full",
         "bg-[#0B0908]",
         "py-24 md:py-32",
-        "overflow-hidden",
+        "overflow-hidden"
       )}
     >
       {/* ── Subtle top separator line ──────────────────────────────────── */}
@@ -47,31 +60,32 @@ export default function StoryTeaser() {
         }}
       />
 
-      {/* ── Main container ────────────────────────────────────────────── */}
+      {/* ── Stretched full-width container matching StoryTeaser ─────────── */}
       <div className="w-full px-6 md:px-12 lg:px-[4vw] xl:px-[5vw]">
         <div
           className={cn(
             "grid grid-cols-1 md:grid-cols-12",
             "gap-12 lg:gap-20 xl:gap-24",
-            "items-center",
+            "items-center"
           )}
         >
-          {/* ── Left Column: Portrait Image ──────────────────────────── */}
-          <div className="md:col-span-6">
-            {/* Outer clip container — rounds nothing, just clips overflow */}
-            <div className="relative overflow-hidden aspect-[4/5] w-full">
-              {/* Image wrapper with GSAP scale handle */}
+          {/* ── Left Column: Chef Portrait (md:col-span-6) ──────────────── */}
+          <div className="md:col-span-6 order-2 md:order-1">
+            <div
+              ref={portraitWrapperRef}
+              className="relative overflow-hidden aspect-[4/5] w-full"
+            >
+              {/* Image wrapper with GSAP parallax & scale settling */}
               <div
-                data-story-img-wrap
-                className="absolute inset-0 will-change-transform"
-                style={{ transform: "scale(1.08)" }} /* GSAP overrides this */
+                ref={portraitImageRef as React.RefObject<HTMLDivElement>}
+                className="absolute inset-0 w-full h-[112%] -top-[6%] will-change-transform"
               >
                 <Image
-                  src="/story-portrait-v2.jpg"
-                  alt="Olive-green velvet curved booths, handcrafted copper pendant lights and candle-lit tables at EMBER & SAGE, with chefs cooking over open flames in the background"
+                  src="/images/home/chef-portrait.jpg"
+                  alt={`Portrait of ${name} at open hearth grill`}
                   fill
                   quality={92}
-                  sizes="(max-width: 768px) 100vw, 42vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover object-center"
                 />
               </div>
@@ -113,21 +127,28 @@ export default function StoryTeaser() {
                     "linear-gradient(to left, transparent 0%, #0B0908 100%)",
                 }}
               />
+              {/* Subtle warm center radial vignette for dramatic contrast */}
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_45%,_rgba(11,9,8,0.75)_105%)] pointer-events-none z-10"
+              />
             </div>
           </div>
 
-          {/* ── Right Column: Story Content ──────────────────────────── */}
-          <div className="md:col-span-6 flex items-center md:pl-12 lg:pl-16 xl:pl-24">
-            {/* data-story-content: GSAP targets each direct child */}
-            <div data-story-content className="flex flex-col max-w-xl w-full">
+          {/* ── Right Column: Chef Content (md:col-span-6) ──────────────── */}
+          <div className="md:col-span-6 order-1 md:order-2 flex items-center md:pl-12 lg:pl-16 xl:pl-24">
+            <div
+              ref={contentRef}
+              className="flex flex-col max-w-xl w-full items-start"
+            >
               {/* Eyebrow Tag */}
               <p
                 className={cn(
                   "font-sans text-[11px] font-medium uppercase tracking-[0.28em]",
-                  "text-[#B58E62] mb-6 md:mb-7",
+                  "text-[#B58E62] mb-6 md:mb-7"
                 )}
               >
-                OUR STORY
+                {eyebrow}
               </p>
 
               {/* Main Headline */}
@@ -135,55 +156,70 @@ export default function StoryTeaser() {
                 className={cn(
                   "font-serif leading-[1.1] tracking-tight",
                   "text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem]",
-                  "mb-6 md:mb-7",
+                  "mb-6 md:mb-7"
                 )}
               >
-                {/* Line 1 — regular weight */}
-                <span className="block font-normal text-[#E6E1D8]">Rooted in tradition.</span>
-                {/* Line 2 — italic, editorial accent */}
-                <span
-                  className={cn(
-                    "block italic font-normal mt-1",
-                    "text-[#9FA89D]",
-                  )}
-                >
-                  Created for today.
+                <span className="block font-normal text-[#E6E1D8]">
+                  {headlineLine1}
+                </span>
+                <span className="block italic font-normal mt-1 text-[#C85A17]">
+                  {headlineLine2}
                 </span>
               </h2>
 
-              {/* Story Body Copy */}
+              {/* Philosophy Body Copy */}
               <p
                 className={cn(
                   "font-sans text-sm md:text-base leading-relaxed",
                   "text-[#8A857D]",
-                  "max-w-lg mb-8 md:mb-10",
+                  "max-w-lg mb-8 md:mb-10"
                 )}
               >
-                EMBER &amp; SAGE brings together open-fire cooking, seasonal
-                ingredients, and modern culinary techniques to create food that
-                feels both familiar and unexpected.
+                {philosophy}
               </p>
+
+              {/* Handwritten Signature Block */}
+              <div className="flex flex-col items-start mb-8 md:mb-10 group">
+                <span
+                  className={cn(
+                    "font-signature text-4xl sm:text-5xl md:text-[3.5rem]",
+                    "text-[#F5F2EB] font-normal leading-none tracking-normal",
+                    "select-none -rotate-1 origin-left pt-1 pb-3",
+                    "transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  )}
+                >
+                  {name}
+                </span>
+                {/* Ultra-thin divider */}
+                <div
+                  aria-hidden
+                  className="w-24 h-[1px] bg-white/15 my-2"
+                />
+                <span className="text-[10px] sm:text-[11px] font-sans font-medium text-[#A89F91]/80 tracking-[0.25em] uppercase">
+                  {credential}
+                </span>
+              </div>
 
               {/* CTA Link */}
               <Link
-                href="/our-story"
-                id="story-teaser-cta"
+                href={linkUrl}
+                id="chef-spotlight-cta"
                 className={cn(
                   "inline-flex items-center gap-2",
                   "font-sans text-[11px] font-medium uppercase tracking-[0.22em]",
                   "text-[#B58E62]",
                   "hover:text-[#E6E1D8]",
                   "transition-colors duration-300",
-                  "group cursor-pointer w-fit",
+                  "group cursor-pointer w-fit"
                 )}
               >
-                DISCOVER OUR STORY
+                {linkText}
                 <ArrowRight
                   size={14}
                   strokeWidth={1.75}
                   className={cn(
                     "transition-transform duration-300",
-                    "group-hover:translate-x-1.5",
+                    "group-hover:translate-x-1.5"
                   )}
                 />
               </Link>
@@ -204,3 +240,4 @@ export default function StoryTeaser() {
     </section>
   );
 }
+export default ChefSpotlight;

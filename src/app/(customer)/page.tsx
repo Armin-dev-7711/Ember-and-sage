@@ -1,12 +1,16 @@
 import HeroSection from "@/features/home/components/HeroSection";
 import StoryTeaser from "@/features/home/components/StoryTeaser";
+import FeaturedDishes from "@/features/home/components/FeaturedDishes";
+import { PhilosophyBanner } from "@/features/home/components/PhilosophyBanner";
+import { ChefSpotlight } from "@/features/home/components/ChefSpotlight";
 import Navbar from "@/components/shared/Navbar";
 
 /**
  * Home page – (customer) route group.
  * Section order:
- *  1. HeroSection   – Cinematic full-viewport hero with GSAP entrance
- *  2. StoryTeaser   – "Our Story" editorial two-column section
+ *  1. HeroSection     – Cinematic full-viewport hero with GSAP entrance
+ *  2. StoryTeaser     – "Our Story" editorial two-column section
+ *  3. FeaturedDishes  – "From The Kitchen" 4-dish showcase grid
  */
 export default function HomePage() {
   return (
@@ -14,9 +18,12 @@ export default function HomePage() {
       <Navbar />
       <HeroSection />
       <StoryTeaser />
+      <FeaturedDishes />
+      <PhilosophyBanner />
+      <ChefSpotlight />
 
       {/* ── Placeholder for upcoming sections ─────────────────────── */}
-      {/* Phase 3+: Menu Highlights, Experience, Gallery, CTA */}
+      {/* Phase 4+: Experience, Gallery, Reservations CTA */}
     </main>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Plus_Jakarta_Sans, Alex_Brush } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import SmoothScroll from "@/components/shared/SmoothScroll";
@@ -17,6 +17,13 @@ const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
+  display: "swap",
+});
+
+const alexBrush = Alex_Brush({
+  variable: "--font-signature",
+  subsets: ["latin"],
+  weight: ["400"],
   display: "swap",
 });
 
@@ -52,7 +59,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${plusJakarta.variable} dark`}
+      className={`${cormorant.variable} ${plusJakarta.variable} ${alexBrush.variable} dark`}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-[#0B0908] text-[#F5F2EB] antialiased overflow-x-hidden">
