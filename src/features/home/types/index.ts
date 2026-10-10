@@ -25,6 +25,37 @@ export interface Dish {
 }
 
 /**
+ * GlimpseImage
+ * ─────────────────────────────────────────────────────────────────────────
+ * A single frame in the "A Glimpse Inside" atmosphere gallery.
+ */
+export interface GlimpseImage {
+  /** Unique stable identifier (used as React key) */
+  id: string;
+  /** Short human-readable title (screen-reader caption) */
+  title: string;
+  /** Descriptive alt text for the photograph */
+  alt: string;
+  /** CSS aspect-ratio string e.g. "3/4", "16/10" */
+  aspectRatio: string;
+  /** Absolute public image path e.g. "/images/home/glimpse/glimpse-booth.jpg" */
+  imageSrc: string;
+}
+
+/**
+ * GlimpseColumn
+ * ─────────────────────────────────────────────────────────────────────────
+ * A vertical stack of gallery frames. The desktop layout renders three
+ * columns side by side, each with its own vertical rhythm.
+ */
+export interface GlimpseColumn {
+  /** Unique stable identifier e.g. "col-1" */
+  id: string;
+  /** Frames stacked top → bottom */
+  items: GlimpseImage[];
+}
+
+/**
  * Category
  * ─────────────────────────────────────────────────────────────────────────
  * Represents a single menu category banner displayed in the

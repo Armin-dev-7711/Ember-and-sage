@@ -4,6 +4,7 @@ import FeaturedDishes from "@/features/home/components/FeaturedDishes";
 import { PhilosophyBanner } from "@/features/home/components/PhilosophyBanner";
 import { ChefSpotlight } from "@/features/home/components/ChefSpotlight";
 import { CategoryBanners } from "@/features/home/components/CategoryBanners";
+import { BentoGlimpse } from "@/features/home/components/BentoGlimpse";
 import Navbar from "@/components/shared/Navbar";
 
 /**
@@ -15,6 +16,7 @@ import Navbar from "@/components/shared/Navbar";
  *  4. PhilosophyBanner – Philosophy pillars banner
  *  5. ChefSpotlight    – Chef portrait & signature
  *  6. CategoryBanners  – "Something for every appetite." 2×2 category grid
+ *  7. BentoGlimpse     – "A Glimpse Inside" asymmetrical atmosphere gallery
  */
 export default function HomePage() {
   return (
@@ -26,6 +28,7 @@ export default function HomePage() {
       <PhilosophyBanner />
       <ChefSpotlight />
       <CategoryBanners />
+      <BentoGlimpse />
 
       {/* ── Placeholder for upcoming sections ─────────────────────── */}
       {/* Phase 4+: Experience, Gallery, Reservations CTA */}
